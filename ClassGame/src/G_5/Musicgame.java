@@ -20,9 +20,19 @@ import javax.swing.JLabel;
 
 
 public class Musicgame extends JFrame {
+	 private int info_fir=0;
+	 private int info_tw=0;
+	 private int paly_num=1;
 	
-	
-	
+	 
+	 private ImageIcon Big_img_dButton_1 = new ImageIcon(Main.class.getResource("../images/Big_img.png"));
+	 private JButton img_printButton_1 = new JButton(Big_img_dButton_1);
+	 private ImageIcon Big_img_Button = new ImageIcon(Main.class.getResource("../images/card_chice_Range.png"));
+	 private JButton Big_img_p_ = new JButton(Big_img_Button);
+	 
+	 
+	 private ImageIcon TutorialendButton_1 = new ImageIcon(Main.class.getResource("../images/Tutorial_close.png"));
+	 private JButton ENDTutorialButton_1 = new JButton(TutorialendButton_1);
 	 private ImageIcon endButton_1 = new ImageIcon(Main.class.getResource("../images/close.png"));
 	 private JButton ENDgameButton_1 = new JButton(endButton_1);
 	 private ImageIcon end_moveButton_1 = new ImageIcon(Main.class.getResource("../images/end_after_Main.png"));
@@ -34,7 +44,7 @@ public class Musicgame extends JFrame {
 	private Image screenImage;
 	private Graphics screenGraphic;
 
-	private ImageIcon Back = new ImageIcon(Main.class.getResource("../images/Main_title.png"));
+	private ImageIcon Back = new ImageIcon(Main.class.getResource("../Card_gif/Main_Sc.gif"));
 	private ImageIcon ExitButten_2 = new ImageIcon(Main.class.getResource("../images/ExitButten_2.png"));
 	private ImageIcon ExitButton_1 = new ImageIcon(Main.class.getResource("../images/ExitButten_1.png"));
 	private ImageIcon UpButtonEnter = new ImageIcon(Main.class.getResource("../images/down_2.png"));
@@ -63,7 +73,7 @@ public class Musicgame extends JFrame {
 	private ImageIcon HardButtonBasic = new ImageIcon(Main.class.getResource("../images/Hard.png"));
 	private ImageIcon BackButton = new ImageIcon(Main.class.getResource("../images/back_menu_button.png"));
 	
-	private Image _Back = new ImageIcon(Main.class.getResource("../images/Main_title.png")).getImage();
+	private Image _Back = new ImageIcon(Main.class.getResource("../Card_gif/Main_Sc.gif")).getImage();
 	private JLabel menubar = new JLabel(new ImageIcon(Main.class.getResource("../images/menubar.png")));
 	
 	
@@ -119,22 +129,36 @@ public class Musicgame extends JFrame {
 	private Image Card_choice_screen= new ImageIcon(Main.class.getResource("../images/card_chice_Screen.png")).getImage();
 	private Image Card_choice_Display= new ImageIcon(Main.class.getResource("../images/card_chice_notify.png")).getImage();
 	private Image Card_char_img= new ImageIcon(Main.class.getResource("../images/ch_1_1.png")).getImage();
+	private Image img_print_img= new ImageIcon(Main.class.getResource("../images/ch_1_1.png")).getImage();
+	
+	private Image info_text_sq = new ImageIcon(Main.class.getResource("../images/info_text.png")).getImage();
+	
 	private int mouseX, mouseY;
 	private int mouse_CardX=103, mouse_CardY=172;
+	private String[] info_text_random= new String [] {"디스코는 예민하고 섬세하고 기버는 다른 사람을 배려하기 좋아하죠",
+			"꺼미는 다른 동물에게 별다른 관심이 없는 편이고,피시는 긍정적이에요",
+			"꺼미는 고양이, 디스코는 거북이, 피시는 뱀, 기버는 토끼에요!","일부 픽토그램 제외한 이미지는 전부 제작자가 디자인 했어요",
+			"코드 도움의 김동빈님의 대한 정보는 구글을 통해 알 수 있어요.","음원들을 구글에 검색하면 바로 찾을 수 있어요",
+			"이 프로그램은 약 1년간 지속적으로 만들어졌어요","UI는 약 5번 이상,음원은 3번 이상 다시 제작 및 추가했어요",
+			"기버는 꺼미와의 가위바위보에 져서 산타옷을 입었어요","디스코는 피시에게 양말을,피시는 루돌푸 머리띠를 선물로 줬어요","꺼미는 마음에 드는 트리 장식을 찾기위해 많은 시간을 썼어요",
+			"피시는 디스코와 물에 있는 걸 매우 좋아해요","꺼미는 기버와 이웃사이에요, 친구이기도 하죠.",
+			"사실 기버는 산타 옷을 입기 싫어했어요","제작자의 깃허브 닉네임은 LIMIHEE에요."};
 	
 	private boolean inMainScreen = false;
 	private boolean inGameScreen = false;
 	private boolean CC_info_Screen= false;
 	private boolean mid_chr_img =false;
 	private boolean Card_Random =false;
+	private boolean info_text_Screen =false;
 	
 	private boolean ScoreCheck_screen = false;
 	private boolean explan_Screenimg_page= false;
 	private boolean Card_choice_s= false;
-	
+	private boolean img_big_p =false;
+	private int img_num =1;
 	private int Card_next= 1;
 	
-	ArrayList<Track> trackList = new ArrayList<Track>();//Ʈ��[shfo] ���� �����
+	ArrayList<Track> trackList = new ArrayList<Track>();//트占쏙옙[shfo] 占쏙옙占쏙옙 占쏙옙占쏙옙占�
 	
 	private Image titleImage;
 	private Music selectedMusic;
@@ -142,7 +166,6 @@ public class Musicgame extends JFrame {
 	private Image selectedMusicImage;
 	private Image selectedNotMusicImage;
 	Music introMusic = new Music("dotabatare-su.mp3", true);
-	Music ScoreMusic = new Music("Quiz-Results01-2.mp3", false);
 	
 	private int nowSelected = 0;
 	
@@ -151,19 +174,25 @@ public class Musicgame extends JFrame {
 	
 	public Musicgame() {
 		
-		trackList.add(new Track("Music_Back_4_U.png","DEVYN_.png","DEVYN_seleted.mp3",
+		trackList.add(new Track("Music_1.png","DEVYN_.png","DEVYN_seleted.mp3",
 				"DEVYN.mp3","DEVYN"));
-		trackList.add(new Track("Music_Back_Boo.png","Boomerang_.png",
+		trackList.add(new Track("Music_2.png","Boomerang_.png",
 				"Boomerang_seleted.mp3","Boomerang.mp3","Boomerang"));
+		trackList.add(new Track("Music_3.png","Boomerang_.png",
+				"Samie_Bower_Skyline_Short.mp3","Samie_Bower_Skyline.mp3","Boomerang"));
+		trackList.add(new Track("Music_4.png","Boomerang_.png",
+				"Niki_J_Crawford_Countosh_short.mp3","Niki_J_Crawford_Countosh.mp3","Boomerang"));
+		trackList.add(new Track("Music_5.png","Boomerang_.png",
+				"The_Spin_Wires_Girls_Like_You_short.mp3","The_Spin_Wires_Girls_Like_You.mp3","Boomerang"));
 		
 		setUndecorated(true);
 		setTitle("Twin Live");
 
-		setSize(Main.SCREEN_WIDTH, Main.SCREEN_HIGHT);// ���� ����â ũ��
-		setResizable(false); // ����â ũ�� ��ȯ����
-		setLocationRelativeTo(null);// ����â �� �߾ӿ� �߰��ϱ�
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // ����â ���������� ���α׷� ��ü ����
-		setVisible(true); // ����â ����ͷ� ����ϱ�
+		setSize(Main.SCREEN_WIDTH, Main.SCREEN_HIGHT);// 占쏙옙占쏙옙 占쏙옙占쏙옙창 크占쏙옙
+		setResizable(false); // 占쏙옙占쏙옙창 크占쏙옙 占쏙옙환占쏙옙占쏙옙
+		setLocationRelativeTo(null);// 占쏙옙占쏙옙창 占쏙옙 占쌩앙울옙 占쌩곤옙占싹깍옙
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 占쏙옙占쏙옙창 占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占싸그뤄옙 占쏙옙체 占쏙옙占쏙옙
+		setVisible(true); // 占쏙옙占쏙옙창 占쏙옙占쏙옙庫占� 占쏙옙占쏙옙歐占�
 		setBackground(new Color(0, 0, 0, 0));
 		setLayout(null);
 
@@ -171,6 +200,59 @@ public class Musicgame extends JFrame {
 		
 		addKeyListener(new KeyLisener());
 		{	
+			
+			Big_img_p_.setVisible(false);
+			Big_img_p_.setBounds(300, 150, 561, 504);
+			Big_img_p_.setBorderPainted(false);
+			Big_img_p_.setContentAreaFilled(false);
+			Big_img_p_.setFocusPainted(false);
+			Big_img_p_.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mousePressed(MouseEvent e) {
+					Music buttonpressed = new Music("buttonpressed.mp3",false);
+					buttonpressed.start();
+					Big_img_p_.setVisible(false);
+					img_big_p=false;
+					
+				}
+			});
+			add(Big_img_p_);
+			
+			img_printButton_1.setVisible(false);
+			img_printButton_1.setBounds(605, 573, 498, 94);
+			img_printButton_1.setBorderPainted(false);
+			img_printButton_1.setContentAreaFilled(false);
+			img_printButton_1.setFocusPainted(false);
+			img_printButton_1.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mousePressed(MouseEvent e) {
+					Music buttonpressed = new Music("buttonpressed.mp3",false);
+					buttonpressed.start();
+					Big_img_p_.setVisible(true);
+					img_big_p=true;
+				}
+			});
+			add(img_printButton_1);
+			
+			ENDTutorialButton_1.setVisible(false);
+			ENDTutorialButton_1.setBounds(50, 50, 155, 63);
+			ENDTutorialButton_1.setBorderPainted(false);
+			ENDTutorialButton_1.setContentAreaFilled(false);
+			ENDTutorialButton_1.setFocusPainted(false);
+			ENDTutorialButton_1.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mousePressed(MouseEvent e) {
+					Music buttonpressed = new Music("buttonpressed.mp3",false);
+					buttonpressed.start();
+					inGameScreen = false;
+					game.close();
+					enterMain();
+				}
+			});
+			add(ENDTutorialButton_1);	
+			
+			
+			
 			ChoiceButton_1.setVisible(false);
 			ChoiceButton_1.setBounds(115, 184, 184, 133);
 			ChoiceButton_1.setBorderPainted(false);
@@ -183,8 +265,10 @@ public class Musicgame extends JFrame {
 					mouse_CardX=103; mouse_CardY=172;
 					Music buttonpressed = new Music("buttonpressed.mp3",false);
 					Card_char_img = new ImageIcon(Main.class.getResource("../images/ch_1_1.png")).getImage();
+					img_print_img = new ImageIcon(Main.class.getResource("../images/ch_1_1.png")).getImage();
+					Big_img_p_.setBounds(400, 200, 561, 504);
 					buttonpressed.start();
-					
+					img_num=1;
 				}
 			});
 			add(ChoiceButton_1);	
@@ -202,8 +286,10 @@ public class Musicgame extends JFrame {
 					mouse_CardX=103; mouse_CardY=360;
 					Music buttonpressed = new Music("buttonpressed.mp3",false);
 					Card_char_img = new ImageIcon(Main.class.getResource("../images/ch_1_12.png")).getImage();
+					img_print_img = new ImageIcon(Main.class.getResource("../images/ch_1_2.png")).getImage();
+					Big_img_p_.setBounds(0, 0, 1200, 720);
 					buttonpressed.start();
-					
+					img_num=2;
 				}
 			});
 			add(ChoiceButton_2);	
@@ -219,7 +305,10 @@ public class Musicgame extends JFrame {
 					mouse_CardX=368; mouse_CardY=173;
 					Music buttonpressed = new Music("buttonpressed.mp3",false);
 					Card_char_img = new ImageIcon(Main.class.getResource("../images/ch_2_1.png")).getImage();
+					img_print_img = new ImageIcon(Main.class.getResource("../images/ch_2_1.png")).getImage();
+					Big_img_p_.setBounds(400, 200, 561, 504);
 					buttonpressed.start();	
+					img_num=1;
 				}
 			});
 			add(ChoiceButton_3);				ChoiceButton_4.setVisible(false);
@@ -234,7 +323,10 @@ public class Musicgame extends JFrame {
 					mouse_CardX=368; mouse_CardY=360;
 					Music buttonpressed = new Music("buttonpressed.mp3",false);
 					Card_char_img = new ImageIcon(Main.class.getResource("../images/ch_2_12.png")).getImage();
+					img_print_img = new ImageIcon(Main.class.getResource("../images/ch_2_2.png")).getImage();
+					Big_img_p_.setBounds(0, 0, 1200, 720);
 					buttonpressed.start();
+					img_num=2;
 				}
 			});
 			add(ChoiceButton_4);
@@ -250,7 +342,10 @@ public class Musicgame extends JFrame {
 					mouse_CardX=630; mouse_CardY=173;
 					Music buttonpressed = new Music("buttonpressed.mp3",false);
 					Card_char_img = new ImageIcon(Main.class.getResource("../images/ch_3_1.png")).getImage();
+					img_print_img = new ImageIcon(Main.class.getResource("../images/ch_3_1.png")).getImage();
+					Big_img_p_.setBounds(400, 200, 561, 504);
 					buttonpressed.start();	
+					img_num=1;
 				}
 			});
 			add(ChoiceButton_5);				
@@ -266,7 +361,10 @@ public class Musicgame extends JFrame {
 					mouse_CardX=630; mouse_CardY=360;
 					Music buttonpressed = new Music("buttonpressed.mp3",false);
 					Card_char_img = new ImageIcon(Main.class.getResource("../images/ch_3_12.png")).getImage();
+					img_print_img = new ImageIcon(Main.class.getResource("../images/ch_3_2.png")).getImage();
+					Big_img_p_.setBounds(0, 0, 1200, 720);
 					buttonpressed.start();
+					img_num=2;
 				}
 			});
 			add(ChoiceButton_6);
@@ -282,7 +380,10 @@ public class Musicgame extends JFrame {
 					mouse_CardX=893; mouse_CardY=173;
 					Music buttonpressed = new Music("buttonpressed.mp3",false);
 					Card_char_img = new ImageIcon(Main.class.getResource("../images/ch_4_1.png")).getImage();
+					img_print_img = new ImageIcon(Main.class.getResource("../images/ch_4_1.png")).getImage();
+					Big_img_p_.setBounds(400, 200, 561, 504);
 					buttonpressed.start();	
+					img_num=1;
 				}
 			});
 			add(ChoiceButton_7);				
@@ -298,7 +399,10 @@ public class Musicgame extends JFrame {
 					mouse_CardX=893; mouse_CardY=360;
 					Music buttonpressed = new Music("buttonpressed.mp3",false);
 					Card_char_img = new ImageIcon(Main.class.getResource("../images/ch_4_12.png")).getImage();
+					img_print_img = new ImageIcon(Main.class.getResource("../images/ch_4_2.png")).getImage();
+					Big_img_p_.setBounds(0, 0, 1200, 720);
 					buttonpressed.start();
+					img_num=2;
 				}
 			});
 			add(ChoiceButton_8);
@@ -366,6 +470,8 @@ public class Musicgame extends JFrame {
 			public void mousePressed(MouseEvent e) {
 				Music buttonpressed = new Music("buttonpressed.mp3",false);
 				buttonpressed.start();
+				Music ScoreMusic = new Music("Quiz-Results01-1.mp3", false);
+				ScoreMusic.start();
 				ScoreCheck();
 			}
 		});
@@ -380,8 +486,6 @@ public class Musicgame extends JFrame {
 			public void mousePressed(MouseEvent e) {
 				Music buttonpressed = new Music("buttonpressed.mp3",false);
 				buttonpressed.start();
-			
-				ScoreMusic.close();
 				Mid_();
 			}
 		});
@@ -581,7 +685,12 @@ public class Musicgame extends JFrame {
 			public void mousePressed(MouseEvent e) {
 				Music buttonpressed = new Music("buttonpressed.mp3",false);
 				buttonpressed.start();
-				enterMain();
+				if(paly_num!=1) {
+					enterMain();
+				}else {
+					Tgame_start();
+				}
+					
 			}
 		});
 		add(PlayButton);
@@ -672,7 +781,15 @@ public class Musicgame extends JFrame {
 			public void mousePressed(MouseEvent e) {
 				Music buttonpressed = new Music("buttonpressed.mp3",false);
 				buttonpressed.start();
-				
+				info_fir=(int)(Math.random()*15);
+				info_tw=(int)(Math.random()*15);	
+				while(info_fir == info_tw) {
+					info_fir=(int)(Math.random()*15);
+					info_tw=(int)(Math.random()*15);	
+				}
+				info_text_Screen=true;
+				close_Button.setVisible(true);
+				close_Button.setBounds(900, 600, 202, 54);
 			}
 		});
 		add(info_Button);
@@ -691,9 +808,12 @@ public class Musicgame extends JFrame {
 				buttonpressed.start();
 				CC_info_Screen=false;
 				Card_choice_s=false;
+				info_text_Screen=false;
+				Big_img_p_.setVisible(false);
+				img_big_p=false;
 				CC_info_= new ImageIcon(Main.class.getResource("../images/noteRutePressed_1.png")).getImage();
 				close_Button.setVisible(false);
-				
+				img_printButton_1.setVisible(false);
 				Mid_();
 				
 			}
@@ -780,9 +900,11 @@ public class Musicgame extends JFrame {
 			ChoiceButton_6.setVisible(true);
 			ChoiceButton_7.setVisible(true);
 			ChoiceButton_8.setVisible(true);
+			close_Button.setVisible(true);
+			img_printButton_1.setVisible(true);
 			g.drawImage(Card_choice_Display,mouse_CardX,mouse_CardY,null);
 			g.setColor(Color.lightGray); g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-			g.setFont(new Font("돋움",Font.BOLD,25)); g.drawString(Character_Name,200, 626); 
+			g.setFont(new Font("�룍��",Font.BOLD,25)); g.drawString(Character_Name,200, 626); 
 			
 		}
 		if(ScoreCheck_screen) {
@@ -829,7 +951,34 @@ public class Musicgame extends JFrame {
 			GachaButton.setVisible(false);
 			startButton.setVisible(false);
 		}
-		paintComponents(g); // �̹����� ������ ����? ������ �̹����� �̷���
+		if(info_text_Screen) {
+			mid_chr_img= true;
+			g.drawImage(info_text_sq,0,0,null);
+			Screen_info.setVisible(false);
+			info_Button.setVisible(false);
+			Card_Button.setVisible(false);
+			CC_Button.setVisible(false);
+			PlayButton.setVisible(false);
+			GachaButton.setVisible(false);
+			startButton.setVisible(false);
+			g.setColor(Color.black); g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+			g.setFont(new Font("돋움",Font.BOLD,25)); g.drawString(info_text_random[info_fir],300, 530); 
+			g.setFont(new Font("돋움",Font.BOLD,25)); g.drawString(info_text_random[info_tw],300, 580); 
+										
+		}
+		if(img_big_p) {
+			if(img_num !=1) {
+				g.drawImage(img_print_img,0,0,null);
+				close_Button.setVisible(false);
+				img_printButton_1.setVisible(false);
+			}
+			else {
+				g.drawImage(img_print_img,300,150,null);
+			}
+			
+			
+		}
+		paintComponents(g); // 占싱뱄옙占쏙옙占쏙옙 占쏙옙占쏘씌占쏙옙占� 占쏙옙占쏙옙? 占쏙옙占쏙옙占쏙옙 占싱뱄옙占쏙옙占쏙옙 占싱뤄옙占쏙옙
 		try {
 			Thread.sleep(5);
 		}catch(Exception e){
@@ -842,7 +991,7 @@ public class Musicgame extends JFrame {
 		if(selectedMusic != null) {
 			selectedMusic.close();
 		}
-		//���� ���õ� �̹��� ��������~
+		//占쏙옙占쏙옙 占쏙옙占시듸옙 占싱뱄옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙~
 		selectedImage = new ImageIcon(Main.class.getResource("../images/"+trackList.get(nowSeleted).getStartImage())).getImage();
 		selectedMusic = new Music(trackList.get(nowSeleted).getStartMusic(),true);
 		selectedMusic.start();
@@ -853,7 +1002,7 @@ public class Musicgame extends JFrame {
 		if(nowSelected == 0) {
 			nowSelected = trackList.size() -1; 
 		}else {
-			nowSelected --; //���� ������ �ƴҶ�
+			nowSelected --; //占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占싣닐띰옙
 		}
 		selectedTrack(nowSelected);
 	}
@@ -867,6 +1016,7 @@ public class Musicgame extends JFrame {
 	}
 	
 	public void gamestart(int nowselected,String difficlty) {
+		paly_num++;
 		mid_chr_img= false;
 		CC_info_Screen=false;
 		close_Button.setVisible(false);
@@ -886,7 +1036,40 @@ public class Musicgame extends JFrame {
 		game.start();
 		 ENDgameButton_1.setVisible(true);
 		setFocusable(true);
+		requestFocus(); 
 		
+		
+	}
+	public void Tgame_start() {
+		mid_chr_img= false;
+		Screen_info.setVisible(false);
+		CC_info_Screen=false;
+		close_Button.setVisible(false);
+		info_Button.setVisible(false);
+		Card_Button.setVisible(false);
+		CC_Button.setVisible(false);
+		PlayButton.setVisible(false);
+		GachaButton.setVisible(false);
+		startButton.setVisible(false);
+		paly_num++;
+		mid_chr_img= false;
+		CC_info_Screen=false;
+		close_Button.setVisible(false);
+		Back_menu_Button.setVisible(false);
+		if(selectedMusic != null)
+			selectedMusic.close();
+		inMainScreen = false;
+		UpButton.setVisible(false);
+		DownButton.setVisible(false);
+		easyButton.setVisible(false);
+		hardButton.setVisible(false);
+		_Back = new ImageIcon(Main.class.getResource("../images/Tutorial_back.png")).getImage();
+		inGameScreen = true;
+		game= new Game("Tutorial","nano","drum_Tutorial");
+		game.start();
+		ENDTutorialButton_1.setVisible(true);
+		setFocusable(true);
+		requestFocus(); 
 		
 	}
 	
@@ -932,6 +1115,7 @@ public class Musicgame extends JFrame {
 	}
 
 	public void enterMain() {
+		ENDTutorialButton_1.setVisible(false);
 		mid_chr_img= false;
 		Screen_info.setVisible(false);
 		CC_info_Screen=false;
@@ -1008,7 +1192,6 @@ public class Musicgame extends JFrame {
 	
 
 	public void ScoreCheck() {
-		ScoreMusic.start();
 		_Back = new ImageIcon(Main.class.getResource("../images/End_game_Screen.png")).getImage();
 		ENDgameButton_after_move.setVisible(true);
 		inGameScreen = false;

@@ -27,11 +27,9 @@ public class Game extends Thread{
 	private Image Line = new ImageIcon(Main.class.getResource("../images/judgementLine.png")).getImage();
 	
 	private Image noteRouteImage_a = new ImageIcon(Main.class.getResource("../images/noteRutePressed_1.png")).getImage();
-	private Image noteRouteImage_b = new ImageIcon(Main.class.getResource("../images/noteRutePressed_1.png")).getImage();
-	private Image noteRouteImage_c = new ImageIcon(Main.class.getResource("../images/noteRutePressed_1.png")).getImage();
 	private Image Back;
 	
-	private Image flareImage ;
+
 	private Image judgeImage ;
 	
 
@@ -43,7 +41,6 @@ public class Game extends Thread{
 	int Score=0;
 	int COMBO=0;
 	
-	private boolean inENDScreen = false;
 	
 	private String titleName;
 	private String difficult;
@@ -59,23 +56,16 @@ public class Game extends Thread{
 		this.titleName =titleName;
 		this.difficult=difficult;
 		this.musicTitle=musicTitle;
-		gameMusic=new Music(this.musicTitle,false);
-	
+		if(musicTitle != "drum_Tutorial") {
+			gameMusic=new Music(this.musicTitle,false);
+		}else {
+			gameMusic=new Music("drum_Tutorial.mp3",true);
+		}
 	}
 
 
 	public void screenDraw(Graphics2D g) {
-		if(inENDScreen==true){
-			g.setColor(Color.lightGray);
-			g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-			g.setFont(new Font("Royalacid_o",Font.BOLD,85));
-			g.drawString(Integer.toString(Per_score+Great_score+Good_score+Miss_score),1018, 136);
-		}
-		else {
-		g.drawImage(noteRouteImage_a, 345 ,327 ,null);
-		g.drawImage(noteRouteImage_b, 531 ,327 ,null);
-		g.drawImage(noteRouteImage_c, 719 ,327 ,null);
-		g.drawImage(flareImage, 370 ,370 ,null);
+		g.drawImage(noteRouteImage_a, 0 ,0 ,null);
 		g.drawImage(judgeImage, 457 ,430 ,null);
 		
 
@@ -114,7 +104,7 @@ public class Game extends Thread{
 		g.drawImage(Line, 0 ,0 ,null);
 		g.drawImage(Back, 0 ,0 ,null);
 		
-		}
+		
 	}
 	
 	
@@ -132,21 +122,21 @@ public class Game extends Thread{
 	
 	public void pressUp() {
 		judge("UP");
-		noteRouteImage_b =  new ImageIcon(Main.class.getResource("../images/noteRutePressed.png")).getImage();
+		noteRouteImage_a =  new ImageIcon(Main.class.getResource("../images/noteRutePressed.png")).getImage();
 		new Music("drum_3.mp3",false).start();
 	}
 	public void releaseUp() {
-		noteRouteImage_b =  new ImageIcon(Main.class.getResource("../images/noteRutePressed_1.png")).getImage();
+		noteRouteImage_a =  new ImageIcon(Main.class.getResource("../images/noteRutePressed_1.png")).getImage();
 	}
 	
 	
 	public void pressRight() {
 		judge("RIGHT");
-		noteRouteImage_c =  new ImageIcon(Main.class.getResource("../images/noteRutePressed.png")).getImage();
+		noteRouteImage_a =  new ImageIcon(Main.class.getResource("../images/noteRutePressed.png")).getImage();
 		new Music("drum_1.mp3",false).start();
 	}
 	public void releaseRight() {
-		noteRouteImage_c =  new ImageIcon(Main.class.getResource("../images/noteRutePressed_1.png")).getImage();
+		noteRouteImage_a =  new ImageIcon(Main.class.getResource("../images/noteRutePressed_1.png")).getImage();
 	}
 	
 	
@@ -166,7 +156,35 @@ public class Game extends Thread{
 	public void dropNote(String titleName) {
 		
 		Beat [] beats = null;
-		if(titleName.equals("DEVYN") && difficult.equals("Easy")) {
+		if(titleName.equals("Tutorial") && difficult.equals("nano")) {
+			int startTime = 650;
+			int gap = 550;
+
+			beats = new Beat[] {	
+					new Beat(startTime + (gap-35)* 0,"LEFT"),
+					new Beat(startTime + (gap-35)* 3,"UP"),
+					new Beat(startTime + (gap-35)* 6,"RIGHT"),
+					new Beat(startTime + (gap-35)* 9,"LEFT"),
+					new Beat(startTime + (gap-35)* 14,"UP"),
+					new Beat(startTime + (gap-35)* 17,"RIGHT"),
+					new Beat(startTime + (gap-35)* 19,"LEFT"),
+					new Beat(startTime + (gap-35)* 21,"UP"),
+					new Beat(startTime + (gap-35)* 24,"RIGHT"),
+					new Beat(startTime + (gap-35)* 27,"LEFT"),
+					new Beat(startTime + (gap-35)* 30,"UP"),
+					new Beat(startTime + (gap-35)* 33,"RIGHT"),
+					new Beat(startTime + (gap-35)* 36,"LEFT"),
+					new Beat(startTime + (gap-35)* 39,"UP"),
+					new Beat(startTime + (gap-35)* 42,"RIGHT"),
+					new Beat(startTime + (gap-35)* 45,"LEFT"),
+					new Beat(startTime + (gap-35)* 48,"UP"),
+					new Beat(startTime + (gap-35)* 51,"RIGHT"),
+					new Beat(startTime + (gap-35)* 54,"LEFT"),
+					new Beat(startTime + (gap-35)* 57,"UP"),
+					new Beat(startTime + (gap-35)* 60,"RIGHT"),
+			};
+		}
+		else if(titleName.equals("DEVYN") && difficult.equals("Easy")) {
 			int startTime = 4200 - Main.REACH_TIME*1000;
 			int gap=600;
 			
@@ -314,197 +332,151 @@ public class Game extends Thread{
 					
 			};
 		}
-		else if(titleName.equals("DEVYN") && difficult.equals("Hard")){
-			int startTime = 4200 - Main.REACH_TIME*1000;
-			int gap=518;
-			
+		else if(titleName.equals("Boomerang") && difficult.equals("Easy")) {
+			int startTime = 1000;
+			int gap = 520;
 			beats = new Beat[] {
-					new Beat(startTime,"UP"),
+					new Beat(startTime,"LEFT"),
 					new Beat(startTime + gap* 1,"LEFT"),
 					new Beat(startTime + gap* 3,"LEFT"),
 					new Beat(startTime + gap* 6,"UP"),
-					new Beat(startTime + gap* 7,"RIGHT"),
-					new Beat(startTime + (gap+10)* 9,"UP"),
-					new Beat(startTime + gap* 13,"UP"),
-					new Beat(startTime + gap* 15,"RIGHT"),
-					new Beat(startTime + gap* 17,"LEFT"),
-					new Beat(startTime + gap* 19,"UP"),
-					new Beat(startTime + (gap)* 21,"RIGHT"),
-					new Beat(startTime + (gap)* 23,"UP"),
-					new Beat(startTime + (gap)* 25,"LEFT"),
-					new Beat(startTime + (gap)* 27,"UP"),
-					new Beat(startTime + (gap)* 29,"LEFT"),
-					new Beat(startTime + (gap+12)* 31,"UP"),
-					new Beat(startTime + (gap+12)* 33,"RIGHT"),
-					new Beat(startTime + (gap+12)* 35,"UP"),
-					new Beat(startTime + (gap+12)* 37,"LEFT"),
-					new Beat(startTime + (gap+12)* 39,"RIGHT"),
-					new Beat(startTime + (gap)* 41,"UP"),
-					new Beat(startTime + (gap)* 42,"LEFT"),
-					new Beat(startTime + gap* 43,"LEFT"),
-					new Beat(startTime + gap* 44,"UP"),
-					new Beat(startTime + gap* 46,"RIGHT"),
-					new Beat(startTime + gap* 48,"RIGHT"),
-					new Beat(startTime + gap* 50,"UP"),
-					new Beat(startTime + gap* 52,"LEFT"),
-					new Beat(startTime + (gap-15)* 54,"UP"),
-					new Beat(startTime + (gap-15)* 56,"RIGHT"),
-					new Beat(startTime + (gap-15)* 57,"LEFT"),
-					new Beat(startTime + (gap-15)* 58,"UP"),
-					new Beat(startTime + (gap-15)* 60,"RIGHT"),
-					new Beat(startTime + (gap-15)* 62,"LEFT"),
-					new Beat(startTime + (gap-15)* 64,"RIGHT"),
-					new Beat(startTime + (gap-15)* 65,"UP"),
-					new Beat(startTime +  (gap-15)* 67,"LEFT"),
-					new Beat(startTime +  (gap-15)* 69,"RIGHT"),
-					new Beat(startTime +  (gap-15)* 70,"LEFT"),
-					new Beat(startTime +  (gap-15)* 72,"UP"),
-					new Beat(startTime +  (gap-15)* 73,"RIGHT"),
-					new Beat(startTime +  (gap-15)* 75,"UP"),
-					new Beat(startTime +  (gap-15)* 76,"UP"),
-					new Beat(startTime +  (gap-15)* 77,"LEFT"),
-					new Beat(startTime +  (gap-30)* 80,"LEFT"),
-					new Beat(startTime + (gap-30)* 81,"UP"),
-					new Beat(startTime + (gap-30)* 82,"RIGHT"),
-					new Beat(startTime + (gap-30)* 83,"UP"),
-					new Beat(startTime + (gap-30)* 84,"UP"),
+					new Beat(startTime + gap* 9,"RIGHT"),
+					new Beat(startTime + gap* 12,"UP"),
+					new Beat(startTime + gap* 15,"LEFT"),
+					new Beat(startTime + gap* 18,"LEFT"),
+					new Beat(startTime + gap* 21,"LEFT"),
+					new Beat(startTime + gap* 24,"UP"),
+					new Beat(startTime + (gap-50)* 27,"RIGHT"),
+					new Beat(startTime + (gap-50)* 30,"RIGHT"),
+					new Beat(startTime + (gap-50)* 33,"RIGHT"),
+					new Beat(startTime + (gap-50)* 36,"UP"),
+					new Beat(startTime + (gap-50)* 39,"LEFT"),
+					new Beat(startTime + (gap-50)* 42,"LEFT"),
+					new Beat(startTime + (gap-50)* 45,"LEFT"),
+					new Beat(startTime + (gap-50)* 48,"UP"),
+					new Beat(startTime + (gap-50)* 51,"LEFT"),
+					new Beat(startTime + (gap-50)* 54,"RIGHT"),
+					new Beat(startTime + (gap-50)* 57,"UP"),
+					new Beat(startTime + (gap-50)* 60,"LEFT"),
+					new Beat(startTime + gap* 63,"LEFT"),
+					new Beat(startTime + gap* 67,"UP"),
+					new Beat(startTime + gap* 70,"LEFT"),
+					new Beat(startTime + gap* 73,"LEFT"),
+					new Beat(startTime + gap* 74,"UP"),
+					new Beat(startTime + gap* 76,"LEFT"),
+					new Beat(startTime + gap* 79,"LEFT"),
+					new Beat(startTime + gap* 82,"RIGHT"),
+					new Beat(startTime + gap* 85,"LEFT"),
+					new Beat(startTime + gap* 88,"UP"),
+					new Beat(startTime + gap* 89,"RIGHT"),
+					new Beat(startTime + gap* 91,"RIGHT"),
+					new Beat(startTime + gap* 94,"RIGHT"),
+					new Beat(startTime + gap* 97,"UP"),
+					new Beat(startTime + gap* 100,"LEFT"),
+					new Beat(startTime + gap* 103,"LEFT"),
+					new Beat(startTime + gap* 106,"LEFT"),
+					new Beat(startTime + gap* 109,"UP"),
+					new Beat(startTime + gap* 102,"RIGHT"),
+					new Beat(startTime + gap* 105,"RIGHT"),
+					new Beat(startTime + gap* 108,"UP"),
+					new Beat(startTime + gap* 111,"LEFT"),
+					new Beat(startTime + gap* 114,"LEFT"),
+					new Beat(startTime + gap* 117,"UP"),
+					new Beat(startTime + gap* 120,"LEFT"),
+					new Beat(startTime + gap* 123,"RIGHT"),
+					new Beat(startTime + gap* 127,"UP"),
 					
-					new Beat(startTime + (gap-30)* 85,"RIGHT"),
-					new Beat(startTime + (gap-30)* 86,"LEFT"),
-					new Beat(startTime + (gap-30)* 87,"UP"),
-					new Beat(startTime + (gap-30)* 88,"LEFT"),
-					new Beat(startTime + (gap-30)* 89,"UP"),
-					new Beat(startTime + (gap-30)* 90,"UP"),
-					new Beat(startTime + (gap-30)* 91,"LEFT"),
-					new Beat(startTime + (gap-30)* 92,"RIGHT"),
-					new Beat(startTime + (gap-30)* 93,"UP"),
-					new Beat(startTime + (gap-30)* 94,"LEFT"),
-					new Beat(startTime + (gap-30)* 95,"RIGHT"),
-					new Beat(startTime + (gap-30)* 96,"UP"),
-					new Beat(startTime + (gap-30)* 97,"LEFT"),
-					new Beat(startTime + (gap-30)* 100,"RIGHT"),
-					new Beat(startTime + (gap-30)* 102,"LEFT"),
-					new Beat(startTime + (gap-30)* 103,"RIGHT"),
-					new Beat(startTime + (gap-30)* 105,"UP"),
-					new Beat(startTime + (gap-30)* 106,"UP"),
+					new Beat(startTime + gap* 130,"RIGHT"),
+					new Beat(startTime + gap* 133,"RIGHT"),
+					new Beat(startTime + gap* 134,"UP"),
+					new Beat(startTime + gap* 136,"LEFT"),
+					new Beat(startTime + gap* 139,"LEFT"),
+					new Beat(startTime + gap* 140,"UP"),
+					new Beat(startTime + gap* 141,"LEFT"),
+					new Beat(startTime + gap* 142,"RIGHT"),
+					new Beat(startTime + gap* 145,"UP"),
+					new Beat(startTime + gap* 148,"LEFT"),
+					new Beat(startTime + gap* 151,"LEFT"),
+					new Beat(startTime + gap* 154,"UP"),
+					new Beat(startTime + gap* 155,"LEFT"),
+					new Beat(startTime + gap* 157,"RIGHT"),
+					new Beat(startTime + gap* 160,"RIGHT"),
+					new Beat(startTime + gap* 163,"UP"),
+					new Beat(startTime + gap* 166,"RIGHT"),
+					new Beat(startTime + gap* 167,"RIGHT"),
 					
-					new Beat(startTime + ((gap-30))* 110,"LEFT"),
-					new Beat(startTime + ((gap-30))* 111,"RIGHT"),
-					new Beat(startTime + ((gap-30))* 113,"UP"),
-					new Beat(startTime + ((gap-30))* 115,"RIGHT"),
-					new Beat(startTime + ((gap-30))* 117,"UP"),
-					new Beat(startTime + ((gap-30))* 119,"LEFT"),
-					new Beat(startTime + (gap-30)* 122,"LEFT"),
-					new Beat(startTime + (gap-30)* 124,"RIGHT"),
-					new Beat(startTime + (gap-30)* 125,"UP"),
-					new Beat(startTime + (gap-30)* 126,"LEFT"),
-					new Beat(startTime + (gap-30)* 127,"UP"),
-					new Beat(startTime + (gap-30)* 128,"RIGHT"),
-					new Beat(startTime + (gap-30)* 129,"RIGHT"),
-					new Beat(startTime + (gap-30)* 130,"LEFT"),
-					new Beat(startTime + (gap-30)* 131,"LEFT"),
-					new Beat(startTime + (gap-30)* 132,"UP"),
-					new Beat(startTime + (gap-30)* 133,"RIGHT"),
-					
-					new Beat(startTime + ((gap-30))* 136,"LEFT"),
-					new Beat(startTime + ((gap-30))* 137,"UP"),
-					new Beat(startTime + ((gap-30))* 138,"RIGHT"),
-					new Beat(startTime + ((gap-30))* 139,"LEFT"),
-					new Beat(startTime + ((gap-30))* 141,"UP"),
-					new Beat(startTime + ((gap-30))* 142,"RIGHT"),
-					new Beat(startTime + ((gap-30))* 145,"RIGHT"),
-					new Beat(startTime + ((gap-30))* 147,"UP"),
-					new Beat(startTime + ((gap-30))* 148,"UP"),
-					new Beat(startTime + ((gap-30))* 149,"RIGHT"),
-					new Beat(startTime + (gap-15)* 151,"UP"),
-					new Beat(startTime + (gap-15)* 153,"LEFT"),
-					new Beat(startTime + (gap-15)* 155,"UP"),
-					new Beat(startTime + (gap-15)* 157,"LEFT"),
-					new Beat(startTime + (gap-10)* 159,"LEFT"),
-					new Beat(startTime + (gap-10)* 161,"RIGHT"),
-					new Beat(startTime + (gap-10)* 163,"LEFT"),
-					new Beat(startTime + (gap-10)* 165,"RIGHT"),
-					new Beat(startTime + (gap-10)* 167,"LEFT"),
-					new Beat(startTime + (gap-5)* 170,"UP"),
-					new Beat(startTime + (gap-5)* 172,"RIGHT"),
-					new Beat(startTime + (gap-5)* 174,"UP"),
-					new Beat(startTime + (gap-5)* 176,"LEFT"),
-					new Beat(startTime + (gap-5)* 180,"RIGHT"),
+					new Beat(startTime + (gap)* 170,"LEFT"),
+					new Beat(startTime + (gap)* 173,"RIGHT"),
+					new Beat(startTime + (gap)* 176,"LEFT"),
+					new Beat(startTime + (gap)* 179,"RIGHT"),
 					new Beat(startTime + (gap)* 182,"LEFT"),
-					new Beat(startTime + (gap)* 184,"RIGHT"),
-				
-					new Beat(startTime + gap* 186,"RIGHT"),
-					new Beat(startTime + gap* 188,"UP"),
-					new Beat(startTime + gap* 190,"LEFT"),
-					new Beat(startTime + (gap-15)* 192,"UP"),
-					new Beat(startTime + (gap-15)* 194,"RIGHT"),
-					new Beat(startTime + (gap-15)* 196,"UP"),
-					new Beat(startTime + (gap-15)* 198,"RIGHT"),
-					new Beat(startTime + (gap-15)* 200,"RIGHT"),
-					new Beat(startTime + (gap-15)* 202,"LEFT"),
-					new Beat(startTime + (gap-15)* 204,"UP"),
-					new Beat(startTime + (gap-15)* 206,"UP"),
-					new Beat(startTime + (gap-15)* 208,"UP"),
-					new Beat(startTime + (gap-15)* 210,"RIGHT"),
-					new Beat(startTime + (gap-15)* 212,"UP"),
-					new Beat(startTime + (gap-15)* 214,"UP"),
+					new Beat(startTime + (gap)* 185,"RIGHT"),
+					new Beat(startTime + (gap)* 188,"LEFT"),
+					new Beat(startTime + (gap)* 191,"RIGHT"),
+					new Beat(startTime + (gap)* 194,"LEFT"),
+					new Beat(startTime + (gap)* 195,"LEFT"),
+					new Beat(startTime + (gap)* 197,"RIGHT"),
+					new Beat(startTime + (gap)* 200,"UP"),
+					new Beat(startTime + (gap)* 203,"UP"),
+					new Beat(startTime + (gap)* 206,"RIGHT"),
+					new Beat(startTime + (gap)* 207,"LEFT"),
+					new Beat(startTime + (gap)* 209,"UP"),
+					new Beat(startTime + (gap)* 212,"UP"),
 					
-					new Beat(startTime + (gap-15)* 215,"UP"),
-					new Beat(startTime + (gap-15)* 217,"RIGHT"),
-					new Beat(startTime + (gap-15)* 219,"UP"),
-					new Beat(startTime + (gap-15)* 221,"LEFT"),
-					new Beat(startTime + (gap-15)* 223,"LEFT"),
-					new Beat(startTime + (gap-15)* 225,"RIGHT"),
-					new Beat(startTime + (gap-15)* 227,"LEFT"),
-					new Beat(startTime + (gap-15)* 230,"UP"),
-					new Beat(startTime + (gap-15)* 232,"RIGHT"),
-					
-					new Beat(startTime + (gap)* 234,"RIGHT"),
-					new Beat(startTime + (gap)* 236,"LEFT"),
-					new Beat(startTime + (gap)* 238,"UP"),
-					new Beat(startTime + (gap)* 240,"UP"),
-					new Beat(startTime + (gap)* 243,"RIGHT"),
-					new Beat(startTime + (gap)* 245,"LEFT"),
-					new Beat(startTime + (gap)* 247,"UP"),
-					new Beat(startTime + (gap)* 249,"UP"),
-					new Beat(startTime + (gap)* 251,"UP"),
-					new Beat(startTime + (gap)* 253,"LEFT"),
-					new Beat(startTime + (gap)* 255,"UP"),
-					new Beat(startTime + (gap)* 257,"LEFT"),
-					new Beat(startTime + (gap)* 259,"LEFT"),
+					new Beat(startTime + gap* 215,"LEFT"),
+					new Beat(startTime + gap* 218,"LEFT"),
+					new Beat(startTime + gap* 221,"RIGHT"),
+					new Beat(startTime + gap* 224,"UP"),
+					new Beat(startTime + gap* 225,"UP"),
+					new Beat(startTime + gap* 227,"RIGHT"),
+					new Beat(startTime + gap* 230,"LEFT"),
+					new Beat(startTime + gap* 233,"UP"),
+					new Beat(startTime + gap* 236,"UP"),
+					new Beat(startTime + gap* 239,"RIGHT"),
+					new Beat(startTime + gap* 240,"RIGHT"),
+					new Beat(startTime + gap* 242,"LEFT"),
+					new Beat(startTime + gap* 245,"RIGHT"),
+					new Beat(startTime + gap* 248,"UP"),
+					new Beat(startTime + gap* 251,"LEFT"),
+					new Beat(startTime + gap* 252,"UP"),
+					new Beat(startTime + (gap)* 255,"LEFT"),
+					new Beat(startTime + (gap)* 258,"RIGHT"),
 					new Beat(startTime + (gap)* 261,"LEFT"),
+					new Beat(startTime + (gap)* 262,"RIGHT"),
+					new Beat(startTime + gap* 264,"UP"),
+					new Beat(startTime + (gap)* 267,"LEFT"),
+					new Beat(startTime + (gap)* 270,"RIGHT"),
 					
-					new Beat(startTime + (gap)* 263,"LEFT"),
-					new Beat(startTime + (gap)* 265,"RIGHT"),
-					new Beat(startTime + (gap)* 267,"UP"),
-					new Beat(startTime + (gap)* 269,"RIGHT"),
-					new Beat(startTime + (gap)* 271,"LEFT"),
-					new Beat(startTime + (gap)* 273,"UP"),
-					new Beat(startTime + (gap)* 275,"LEFT"),
-					new Beat(startTime + (gap)* 277,"UP"),
-					new Beat(startTime + (gap)* 279,"RIGHT"),
-					new Beat(startTime + (gap)* 281,"LEFT"),
-					new Beat(startTime + (gap)* 283,"RIGHT"),
-					new Beat(startTime + (gap)* 285,"RIGHT"),
-					new Beat(startTime + (gap)* 287,"LEFT"),
-					new Beat(startTime + (gap)* 289,"RIGHT"),
-					new Beat(startTime + (gap)* 291,"RIGHT"),
+					new Beat(startTime + gap* 273,"UP"),
+					new Beat(startTime + gap* 274,"RIGHT"),
+					new Beat(startTime + gap* 277,"RIGHT"),
+					new Beat(startTime + gap* 280,"UP"),
+					new Beat(startTime + gap* 283,"LEFT"),
+					new Beat(startTime + gap* 284,"LEFT"),
+					new Beat(startTime + gap* 286,"UP"),
+					
+					new Beat(startTime + (gap)* 289,"LEFT"),
+					new Beat(startTime + (gap)* 290,"LEFT"),
 					new Beat(startTime + (gap)* 293,"LEFT"),
-					new Beat(startTime + (gap)* 295,"RIGHT"),
-					new Beat(startTime + (gap)* 297,"UP"),
-					new Beat(startTime + (gap)* 299,"UP"),
-					new Beat(startTime + (gap)* 301,"LEFT"),
-					new Beat(startTime + (gap)* 303,"RIGHT"),
-					new Beat(startTime + (gap)* 305,"LEFT"),
-					new Beat(startTime + (gap)* 307,"UP"),
-					new Beat(startTime + (gap)* 308,"LEFT"),
+					new Beat(startTime + (gap)* 297,"RIGHT"),
 					
-					new Beat(startTime + (gap)* 309,"RIGHT"),
-
-					new Beat(startTime + (gap)* 319,"NOne"),
-
+					new Beat(startTime + gap* 300,"RIGHT"),
+					new Beat(startTime + gap* 303,"UP"),
+					new Beat(startTime + gap* 307,"LEFT"),
+					new Beat(startTime + gap* 310,"UP"),
+					new Beat(startTime + gap* 311,"UP"),
+					new Beat(startTime + gap* 312,"LEFT"),
 					
-				
+					new Beat(startTime + (gap)* 315,"RIGHT"),
+					new Beat(startTime + (gap)* 318,"LEFT"),
+					new Beat(startTime + (gap)* 319,"RIGHT"),
+					new Beat(startTime + (gap)* 321,"LEFT"),
+					new Beat(startTime + (gap)* 324,"RIGHT"),
+					new Beat(startTime + (gap)* 327,"LEFT"),
+					new Beat(startTime + (gap)* 330,"LEFT"),
+					
+					new Beat(startTime + (gap)* 340,"NOne"),
+					
 			};
 		}
 		else if(titleName.equals("Boomerang") && difficult.equals("Easy")) {
@@ -972,13 +944,14 @@ public class Game extends Thread{
 		gameMusic.start();
 		while(i < beats.length && !isInterrupted()) {
 			boolean dropped = false;
-			if(beats[i].getTime() <= gameMusic.getTime()) {
-				Note note = new Note(beats[i].getNoteName());
-				note.start();
-				noteList.add(note);
-				i++;
-				dropped=true;
-			}
+				if(beats[i].getTime() <= gameMusic.getTime()) {
+					Note note = new Note(beats[i].getNoteName());
+					note.start();
+					noteList.add(note);
+					i++;
+					dropped=true;
+				}
+			
 			if(!dropped) {
 				try {
 					Thread.sleep(1);
@@ -999,8 +972,7 @@ public class Game extends Thread{
 		}
 	}
 	public void judgeEvent(String judge) {
-		if(!judge.equals("None")) {
-		}
+		
 		if(judge.equals("Good")){
 			Score+=500;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/Good_Image.png")).getImage();
