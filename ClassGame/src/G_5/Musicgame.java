@@ -179,7 +179,7 @@ public class Musicgame extends JFrame {
 		trackList.add(new Track("Music_2.png","Boomerang_.png",
 				"Boomerang_seleted.mp3","Boomerang.mp3","Boomerang"));
 		trackList.add(new Track("Music_3.png","Boomerang_.png",
-				"Samie_Bower_Skyline_Short.mp3","Samie_Bower_Skyline.mp3","Boomerang"));
+				"Samie_Bower_Skyline_Short.mp3","Samie_Bower_Skyline.mp3","Skyline"));
 		trackList.add(new Track("Music_4.png","Boomerang_.png",
 				"Niki_J_Crawford_Countosh_short.mp3","Niki_J_Crawford_Countosh.mp3","Boomerang"));
 		trackList.add(new Track("Music_5.png","Boomerang_.png",
