@@ -183,7 +183,7 @@ public class Musicgame extends JFrame {
 		trackList.add(new Track("Music_4.png","Boomerang_.png",
 				"Niki_J_Crawford_Countosh_short.mp3","Niki_J_Crawford_Countosh.mp3","Countosh"));
 		trackList.add(new Track("Music_5.png","Boomerang_.png",
-				"The_Spin_Wires_Girls_Like_You_short.mp3","The_Spin_Wires_Girls_Like_You.mp3","Boomerang"));
+				"The_Spin_Wires_Girls_Like_You_short.mp3","The_Spin_Wires_Girls_Like_You.mp3","Girls_Like_You"));
 		
 		setUndecorated(true);
 		setTitle("Twin Live");
