@@ -178,11 +178,11 @@ public class Musicgame extends JFrame {
 				"DEVYN.mp3","DEVYN"));
 		trackList.add(new Track("Music_2.png","Boomerang_.png",
 				"Boomerang_seleted.mp3","Boomerang.mp3","Boomerang"));
-		trackList.add(new Track("Music_3.png","Boomerang_.png",
+		trackList.add(new Track("Music_3.png","Skyline_back.png",
 				"Samie_Bower_Skyline_Short.mp3","Samie_Bower_Skyline.mp3","Skyline"));
-		trackList.add(new Track("Music_4.png","Boomerang_.png",
+		trackList.add(new Track("Music_4.png","Countosh_back.png",
 				"Niki_J_Crawford_Countosh_short.mp3","Niki_J_Crawford_Countosh.mp3","Countosh"));
-		trackList.add(new Track("Music_5.png","Boomerang_.png",
+		trackList.add(new Track("Music_5.png","Girls_Like_You_back.png",
 				"The_Spin_Wires_Girls_Like_You_short.mp3","The_Spin_Wires_Girls_Like_You.mp3","Girls_Like_You"));
 		
 		setUndecorated(true);
