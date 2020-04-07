@@ -8,6 +8,9 @@
 |:---:|:---:|:---:|
 |HoneyChrome|Boomerang|Easy, Hard|
 |DEVYN+RO$E|FALLING 4 U|Easy, Hard|
+|Samie Bower|Skyline|Easy, Hard|
+|Niki J Crawford|Countosh|Easy, Hard|
+|The Spin Wires|Girls Like You|Easy, Hard|
 
 # UI
 ### 이미지 클릭 시 체험 영상으로 넘어갑니다
