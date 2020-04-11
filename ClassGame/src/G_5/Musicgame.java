@@ -1,21 +1,32 @@
 package G_5;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+
+import com.mysql.cj.xdevapi.Statement;
 
 
 
@@ -39,7 +50,8 @@ public class Musicgame extends JFrame {
 	 private JButton ENDgameButton_after_move = new JButton(end_moveButton_1);
 	 private ImageIcon char_neButton_1 = new ImageIcon(Main.class.getResource("../images/next_card.png"));
 	 private JButton next_card = new JButton(char_neButton_1);
-
+	 private ImageIcon Ranking_Up_Btn = new ImageIcon(Main.class.getResource("../images/ranking_btn.png"));
+	 private JButton Ranking_Up = new JButton(Ranking_Up_Btn);
 	
 	private Image screenImage;
 	private Graphics screenGraphic;
@@ -477,7 +489,7 @@ public class Musicgame extends JFrame {
 		});
 		add(ENDgameButton_1);
 		ENDgameButton_after_move.setVisible(false);
-		ENDgameButton_after_move.setBounds(700, 80, 155, 63);
+		ENDgameButton_after_move.setBounds(880, 80, 155, 63);
 		ENDgameButton_after_move.setBorderPainted(false);
 		ENDgameButton_after_move.setContentAreaFilled(false);
 		ENDgameButton_after_move.setFocusPainted(false);
@@ -491,6 +503,25 @@ public class Musicgame extends JFrame {
 		});
 		add(ENDgameButton_after_move);
 		
+		
+		Ranking_Up.setVisible(false);
+		Ranking_Up.setBounds(700, 80, 155, 63);
+		Ranking_Up.setBorderPainted(false);
+		Ranking_Up.setContentAreaFilled(false);
+		Ranking_Up.setFocusPainted(false);
+		Ranking_Up.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				Music buttonpressed = new Music("buttonpressed.mp3",false);
+				buttonpressed.start();
+				
+				
+				Ranking_score();
+		   		 
+				
+			}
+		});
+		add(Ranking_Up);
 		 
 		exitButton.setBounds(1150, 0, 30, 30);
 		exitButton.setBorderPainted(false);
@@ -1090,7 +1121,7 @@ public class Musicgame extends JFrame {
 		PlayButton.setVisible(true);
 		 ENDgameButton_1.setVisible(false);
 		
-		
+		 Ranking_Up.setVisible(false);
 		ENDgameButton_after_move.setVisible(false);
 		UpButton.setVisible(false);
 		DownButton.setVisible(false);
@@ -1194,6 +1225,7 @@ public class Musicgame extends JFrame {
 	public void ScoreCheck() {
 		_Back = new ImageIcon(Main.class.getResource("../images/End_game_Screen.png")).getImage();
 		ENDgameButton_after_move.setVisible(true);
+		Ranking_Up.setVisible(true);
 		inGameScreen = false;
 		game.close();
 		ENDgameButton_1.setVisible(false);
@@ -1203,6 +1235,60 @@ public class Musicgame extends JFrame {
 		close_Button.setVisible(false);
 		Card_choice_s = false;
 
+	}
+	
+	private void Ranking_score() {
+		 Connection conn = null ;
+	     Statement st;
+	     ResultSet rs;
+	     
+	     
+	     try {
+	   		  Class.forName("com.mysql.cj.jdbc.Driver");
+	   		  conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/animal_friend?serverTimezone=UTC","root","root");
+	   		System.out.println("드라이버 연결 굿");
+	   	  }catch(Exception ec) {
+	   		  System.out.println("드라이버 로딩 실패");
+		            System.out.println(ec);
+	   	  }
+		
+		Dimension dim = new Dimension(400,100);
+		
+		JFrame frame = new JFrame("이름 입력");
+		
+		frame.resize(400, 100);
+		frame.setPreferredSize(dim);
+		JTextField textField = new JTextField();
+		JLabel label = new JLabel("순위에 등록 될 이름을 적어주세요.(길게 입력시 잘립니다)");
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setVerticalAlignment(SwingConstants.CENTER);
+		
+		JButton btton = new JButton("결정 완료!");
+		btton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				frame.setVisible(false);
+				String name=textField.getText();
+				String SQL= "INSERT INTO ranking VALUES('"+name+"', 4000) ";
+				try {
+					PreparedStatement pstmt;
+					Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/animal_friend?serverTimezone=UTC","root","root");
+					pstmt = conn.prepareStatement(SQL);
+					pstmt.executeUpdate();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+			
+		});
+		frame.add(label, BorderLayout.NORTH);
+		frame.add(textField, BorderLayout.CENTER);
+		frame.add(btton,BorderLayout.SOUTH);
+		frame.setVisible(true);
+		
+		
 	}
 	
 

@@ -18,21 +18,25 @@ public class DB_test {
      public DB_test(){
    	  try {
    		  Class.forName("com.mysql.cj.jdbc.Driver");
-   		  conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/tutorial?serverTimezone=UTC","root","root");
+   		  conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/animal_friend?serverTimezone=UTC","root","root");
    		System.out.println("드라이버 연결 굿");
    	  }catch(Exception e) {
    		  System.out.println("드라이버 로딩 실패");
 	            System.out.println(e);
    	  }
      }
-     public boolean isAdmin(String adminId,String adminPassword) {
+     public boolean isAdmin(String adminId,int adminPassword) {
 		try {
-			String SQL= "INSERT INTO admin VALUES('test', 'test') ";
+			String SQL= "INSERT INTO ranking VALUES('이름', 3000) ";
 			pstmt = conn.prepareStatement(SQL);
 			pstmt.executeUpdate();
-			String Sql = "select * from admin where adminID = '"+adminId+"'and adminPassWord='"+adminPassword+"'";
-			rs = pstmt.executeQuery(Sql);
+			//값 넣기
 			
+			
+			
+			String Sql = "select * from ranking where name = '"+adminId+"'and score="+adminPassword;
+			rs = pstmt.executeQuery(Sql);
+			//값 가져오기
 			
 			if(rs.next()) {
 				return true;
@@ -46,7 +50,7 @@ public class DB_test {
      
 	public static void main(String[] args) {
 		DB_test connection = new DB_test();
-		System.out.println("관리자 여부:"+connection.isAdmin("test","test"));
+		System.out.println("관리자 여부:"+connection.isAdmin("이름",3000));
 	}
 //	    public static void main(String[] args) {
 //	        // Connection 객체를 자동완성으로 import할 때는 com.mysql.connection이 아닌
