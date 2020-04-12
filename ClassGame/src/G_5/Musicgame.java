@@ -949,6 +949,10 @@ public class Musicgame extends JFrame {
 			g.setFont(new Font("Royalacid_o",Font.BOLD,45)); g.drawString(Integer.toString(game.Miss_score),500, 475);
 			g.setColor(Color.gray); g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 			g.setFont(new Font("Royalacid_o",Font.BOLD,55)); g.drawString(Integer.toString(game.Score),400, 640);
+			
+			
+			
+			
 			g.drawImage(Card_char_img,630,200,null);
 			
 		}
@@ -1270,7 +1274,7 @@ public class Musicgame extends JFrame {
 				
 				frame.setVisible(false);
 				String name=textField.getText();
-				String SQL= "INSERT INTO ranking VALUES('"+name+"', 4000) ";
+				String SQL= "INSERT INTO ranking VALUES('"+name+"', "+game.Score+") ";
 				try {
 					PreparedStatement pstmt;
 					Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/animal_friend?serverTimezone=UTC","root","root");

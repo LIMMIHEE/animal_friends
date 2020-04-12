@@ -191,6 +191,7 @@ public class Game extends Thread{
 					new Beat(startTime + (gap-35)* 81,"LEFT"),
 					new Beat(startTime + (gap-35)* 84,"UP"),
 					new Beat(startTime + (gap-35)* 87,"RIGHT"),
+					
 			};
 		}
 		else if(titleName.equals("DEVYN") && difficult.equals("Easy")) {
@@ -335,7 +336,7 @@ public class Game extends Thread{
 					new Beat(startTime + (gap)* 289,"RIGHT"),
 					new Beat(startTime + (gap)* 292,"LEFT"),
 					
-					new Beat(startTime + (gap)* 302,"NOne"),
+					new Beat(startTime + (gap)* 293,"NOne"),
 				
 	
 					
@@ -484,7 +485,7 @@ public class Game extends Thread{
 					new Beat(startTime + (gap)* 327,"LEFT"),
 					new Beat(startTime + (gap)* 330,"LEFT"),
 					
-					new Beat(startTime + (gap)* 340,"NOne"),
+					new Beat(startTime + (gap)* 331,"NOne"),
 					
 			};
 		}
@@ -631,7 +632,7 @@ public class Game extends Thread{
 					new Beat(startTime + (gap)* 327,"LEFT"),
 					new Beat(startTime + (gap)* 330,"LEFT"),
 					
-					new Beat(startTime + (gap)* 340,"NOne"),
+					new Beat(startTime + (gap)* 331,"NOne"),
 					
 			};
 			
@@ -945,7 +946,7 @@ public class Game extends Thread{
 					new Beat(startTime + (gap)* 303,"LEFT"),
 					
 
-					new Beat(startTime + (gap)* 313,"NOne"),
+					new Beat(startTime + (gap)* 304,"NOne"),
 			};
 		}else if(titleName.equals("Skyline") && difficult.equals("Easy")) {
 			int startTime = 1000;
@@ -1025,7 +1026,8 @@ public class Game extends Thread{
 					new Beat(startTime + (gap)* 185,"RIGHT"),
 					new Beat(startTime + (gap)* 188,"UP"),
 					new Beat(startTime + (gap)* 191,"RIGHT"),
-					
+
+					new Beat(startTime + (gap)* 192,"NOne"),
 			};
 			
 		}else if(titleName.equals("Skyline") && difficult.equals("Hard")) {
@@ -1164,7 +1166,7 @@ public class Game extends Thread{
 					new Beat(startTime + (gap)* 222,"LEFT"),
 					new Beat(startTime + (gap)* 224,"LEFT"),
 					new Beat(startTime + (gap)* 226,"RIGHT"),
-			
+					new Beat(startTime + (gap)* 227,"NOne"),
 					
 			};
 		}else if(titleName.equals("Countosh") && difficult.equals("Easy")) {
@@ -1431,7 +1433,7 @@ public class Game extends Thread{
 					new Beat(startTime + (gap)* 246,"RIGHT"),
 					new Beat(startTime + (gap)* 247,"UP"),
 			
-					new Beat(startTime + (gap)* 254,"NOne"),
+					new Beat(startTime + (gap)* 248,"NOne"),
 			};
 		}
 		else if(titleName.equals("Skyline") && difficult.equals("Easy")) {
@@ -1512,7 +1514,7 @@ public class Game extends Thread{
 					new Beat(startTime + (gap)* 185,"RIGHT"),
 					new Beat(startTime + (gap)* 188,"UP"),
 					new Beat(startTime + (gap)* 191,"RIGHT"),
-					
+					new Beat(startTime + (gap)* 192,"NOne"),
 			};
 			
 		}else if(titleName.equals("Girls_Like_You") && difficult.equals("Easy")) {
@@ -1651,7 +1653,7 @@ public class Game extends Thread{
 					new Beat(startTime + (gap)* 222,"LEFT"),
 					new Beat(startTime + (gap)* 224,"LEFT"),
 					new Beat(startTime + (gap)* 226,"RIGHT"),
-			
+					new Beat(startTime + (gap)* 227,"NOne"),
 					
 			};
 		}else if(titleName.equals("Girls_Like_You") && difficult.equals("Hard")) {
@@ -1794,7 +1796,7 @@ public class Game extends Thread{
 					new Beat(startTime + (gap-24)* 222,"LEFT"),
 					new Beat(startTime + (gap)* 224,"LEFT"),
 					new Beat(startTime + (gap)* 226,"RIGHT"),
-			
+					new Beat(startTime + (gap)* 227,"NOne"),
 					
 			};
 		}
