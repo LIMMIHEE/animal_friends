@@ -27,15 +27,22 @@ public class DB_test {
      }
      public boolean isAdmin(String adminId,int adminPassword) {
 		try {
-			String SQL= "INSERT INTO ranking VALUES('이름', 3000) ";
+			String SQL= "select *  from (select * from ranking order by score desc) ranking LIMIT 10 ";
 			pstmt = conn.prepareStatement(SQL);
-			pstmt.executeUpdate();
+			
 			//값 넣기
 			
 			
 			
-			String Sql = "select * from ranking where name = '"+adminId+"'and score="+adminPassword;
+			String Sql = "select *  from (select * from ranking order by score desc) ranking LIMIT 10";
 			rs = pstmt.executeQuery(Sql);
+			while (rs.next())
+			{
+				String name=rs.getString("name");
+				int score=rs.getInt("score");
+				System.out.println(name+"    "+score);
+				
+			}
 			//값 가져오기
 			
 			if(rs.next()) {

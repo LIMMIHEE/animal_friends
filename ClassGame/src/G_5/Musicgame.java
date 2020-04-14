@@ -31,6 +31,11 @@ import com.mysql.cj.xdevapi.Statement;
 
 
 public class Musicgame extends JFrame {
+
+     
+     private String[] Ranking_name = new String[10];
+     private int[] Ranking_score = new int[10];
+	
 	 private int info_fir=0;
 	 private int info_tw=0;
 	 private int paly_num=1;
@@ -279,6 +284,7 @@ public class Musicgame extends JFrame {
 					buttonpressed.start();
 					Ranking_Screen=true;
 					close_Button.setBounds(500,37, 202, 54);
+					Print_Ranking();
 					
 				}
 			});
@@ -957,7 +963,7 @@ public class Musicgame extends JFrame {
 			img_printButton_1.setVisible(true);
 			g.drawImage(Card_choice_Display,mouse_CardX,mouse_CardY,null);
 			g.setColor(Color.lightGray); g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-			g.setFont(new Font("�룍��",Font.BOLD,25)); g.drawString(Character_Name,200, 626); 
+			g.setFont(new Font("Royalacid_o",Font.BOLD,25)); g.drawString(Character_Name,200, 626); 
 			
 		}
 		if(Ranking_Screen) {
@@ -972,6 +978,11 @@ public class Musicgame extends JFrame {
 			PlayButton.setVisible(false);
 			GachaButton.setVisible(false);
 			startButton.setVisible(false);
+			
+			
+			g.setColor(Color.gray); g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+			g.setFont(new Font("Royalacid_o",Font.BOLD,45)); g.drawString(Ranking_name[1],500, 200);
+			
 		}
 		if(ScoreCheck_screen) {
 			g.setColor(Color.gray); g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
@@ -1329,6 +1340,41 @@ public class Musicgame extends JFrame {
 		frame.setVisible(true);
 		
 		
+	}
+	
+	private void  Print_Ranking() {
+		 Connection conn = null ;
+	     Statement st;
+	     ResultSet rs;
+	     PreparedStatement pstmt = null;
+
+	     try {
+	   		  Class.forName("com.mysql.cj.jdbc.Driver");
+	   		  conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/animal_friend?serverTimezone=UTC","root","root");
+	   		  System.out.println("드라이버 연결 굿");
+	   	  }catch(Exception ec) {
+	   		  System.out.println("드라이버 로딩 실패");
+		            System.out.println(ec);
+	   	  }
+
+		try {
+			String SQL= "select *  from (select * from ranking order by score desc) ranking LIMIT 10 ";
+			pstmt = conn.prepareStatement(SQL);
+			int i=0;
+			//String Sql ="select @rownum:=@rownum+1 as rownum, ranking.*  from (select * from ranking order by score desc) ranking LIMIT 10";
+			String Sql = "select *  from (select * from ranking order by score desc) ranking LIMIT 10";
+			rs = pstmt.executeQuery(Sql);
+			
+			while (rs.next())
+			{
+				Ranking_name[i]=rs.getString("name");
+				Ranking_score[i]=rs.getInt("score");
+				i++;
+			}
+		} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+		}
 	}
 	
 
