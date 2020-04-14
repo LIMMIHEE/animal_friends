@@ -107,7 +107,8 @@ public class Musicgame extends JFrame {
 	private JButton ChoiceButton_7 = new JButton(CButton_7);
 	private ImageIcon CButton_8 = new ImageIcon(Main.class.getResource("../images/card_chice_Range.png"));
 	private JButton ChoiceButton_8 = new JButton(CButton_8);	
-
+	private ImageIcon Ranking_Print_btn = new ImageIcon(Main.class.getResource("../images/ranking_Print_btn.png"));
+	private JButton Ranking_Print = new JButton(Ranking_Print_btn);
 
 	private ImageIcon Screen_explan = new ImageIcon(Main.class.getResource("../images/Screen_explan.png"));
 	private JButton Screen_info = new JButton(Screen_explan);
@@ -139,6 +140,7 @@ public class Musicgame extends JFrame {
 	private Image CC_info_= new ImageIcon(Main.class.getResource("../images/cc_infomation.png")).getImage();
 	private Image explan_Screenimg_= new ImageIcon(Main.class.getResource("../images/Screen_explan_img.png")).getImage();
 	private Image Card_choice_screen= new ImageIcon(Main.class.getResource("../images/card_chice_Screen.png")).getImage();
+	private Image Ranking_screen= new ImageIcon(Main.class.getResource("../images/ranking_page.png")).getImage();
 	private Image Card_choice_Display= new ImageIcon(Main.class.getResource("../images/card_chice_notify.png")).getImage();
 	private Image Card_char_img= new ImageIcon(Main.class.getResource("../images/ch_1_1.png")).getImage();
 	private Image img_print_img= new ImageIcon(Main.class.getResource("../images/ch_1_1.png")).getImage();
@@ -162,6 +164,7 @@ public class Musicgame extends JFrame {
 	private boolean mid_chr_img =false;
 	private boolean Card_Random =false;
 	private boolean info_text_Screen =false;
+	private boolean Ranking_Screen =false;
 	
 	private boolean ScoreCheck_screen = false;
 	private boolean explan_Screenimg_page= false;
@@ -264,6 +267,22 @@ public class Musicgame extends JFrame {
 			add(ENDTutorialButton_1);	
 			
 			
+			Ranking_Print.setVisible(false);
+			Ranking_Print.setBounds(44, 105,  155, 63);
+			Ranking_Print.setBorderPainted(false);
+			Ranking_Print.setContentAreaFilled(false);
+			Ranking_Print.setFocusPainted(false);
+			Ranking_Print.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mousePressed(MouseEvent e) {
+					Music buttonpressed = new Music("buttonpressed.mp3",false);
+					buttonpressed.start();
+					Ranking_Screen=true;
+					close_Button.setBounds(500,37, 202, 54);
+					
+				}
+			});
+			add(Ranking_Print);	
 			
 			ChoiceButton_1.setVisible(false);
 			ChoiceButton_1.setBounds(115, 184, 184, 133);
@@ -841,6 +860,7 @@ public class Musicgame extends JFrame {
 				Card_choice_s=false;
 				info_text_Screen=false;
 				Big_img_p_.setVisible(false);
+				Ranking_Screen=false;
 				img_big_p=false;
 				CC_info_= new ImageIcon(Main.class.getResource("../images/noteRutePressed_1.png")).getImage();
 				close_Button.setVisible(false);
@@ -910,12 +930,14 @@ public class Musicgame extends JFrame {
 			PlayButton.setVisible(false);
 			GachaButton.setVisible(false);
 			startButton.setVisible(false);
+			Ranking_Print.setVisible(false);
 			
 		}
 		if(Card_choice_s) {
 			mid_chr_img= false;
 			close_Button.setBounds(500,37, 202, 54);
 			g.drawImage(Card_choice_screen,0,0,null);
+			Ranking_Print.setVisible(false);
 			Screen_info.setVisible(false);
 			info_Button.setVisible(false);
 			Card_Button.setVisible(false);
@@ -937,6 +959,19 @@ public class Musicgame extends JFrame {
 			g.setColor(Color.lightGray); g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 			g.setFont(new Font("�룍��",Font.BOLD,25)); g.drawString(Character_Name,200, 626); 
 			
+		}
+		if(Ranking_Screen) {
+			Ranking_Print.setVisible(false);
+			mid_chr_img= false;
+			close_Button.setVisible(true);
+			g.drawImage(Ranking_screen,0,0,null);
+			Screen_info.setVisible(false);
+			info_Button.setVisible(false);
+			Card_Button.setVisible(false);
+			CC_Button.setVisible(false);
+			PlayButton.setVisible(false);
+			GachaButton.setVisible(false);
+			startButton.setVisible(false);
 		}
 		if(ScoreCheck_screen) {
 			g.setColor(Color.gray); g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
@@ -985,6 +1020,7 @@ public class Musicgame extends JFrame {
 			PlayButton.setVisible(false);
 			GachaButton.setVisible(false);
 			startButton.setVisible(false);
+			Ranking_Print.setVisible(false);
 		}
 		if(info_text_Screen) {
 			mid_chr_img= true;
@@ -996,6 +1032,7 @@ public class Musicgame extends JFrame {
 			PlayButton.setVisible(false);
 			GachaButton.setVisible(false);
 			startButton.setVisible(false);
+			Ranking_Print.setVisible(false);
 			g.setColor(Color.black); g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 			g.setFont(new Font("돋움",Font.BOLD,25)); g.drawString(info_text_random[info_fir],300, 530); 
 			g.setFont(new Font("돋움",Font.BOLD,25)); g.drawString(info_text_random[info_tw],300, 580); 
@@ -1079,6 +1116,7 @@ public class Musicgame extends JFrame {
 		mid_chr_img= false;
 		Screen_info.setVisible(false);
 		CC_info_Screen=false;
+		Ranking_Print.setVisible(false);
 		close_Button.setVisible(false);
 		info_Button.setVisible(false);
 		Card_Button.setVisible(false);
@@ -1094,10 +1132,6 @@ public class Musicgame extends JFrame {
 		if(selectedMusic != null)
 			selectedMusic.close();
 		inMainScreen = false;
-		UpButton.setVisible(false);
-		DownButton.setVisible(false);
-		easyButton.setVisible(false);
-		hardButton.setVisible(false);
 		_Back = new ImageIcon(Main.class.getResource("../images/Tutorial_back.png")).getImage();
 		inGameScreen = true;
 		game= new Game("Tutorial","nano","drum_Tutorial");
@@ -1115,6 +1149,7 @@ public class Musicgame extends JFrame {
 		mid_chr_img= true;
 		Screen_info.setVisible(true);
 		inGameScreen = false;
+		Ranking_Print.setVisible(true);
 		CC_Button.setVisible(true);
 		Card_Button.setVisible(true);
 		info_Button.setVisible(true);
@@ -1154,6 +1189,7 @@ public class Musicgame extends JFrame {
 		mid_chr_img= false;
 		Screen_info.setVisible(false);
 		CC_info_Screen=false;
+		Ranking_Print.setVisible(false);
 		close_Button.setVisible(false);
 		info_Button.setVisible(false);
 		Card_Button.setVisible(false);
@@ -1178,7 +1214,7 @@ public class Musicgame extends JFrame {
 		mid_chr_img= false;
 		Gatcha_one_Button.setVisible(true);
 		Gatcha_five_Button.setVisible(true);
-		
+		Ranking_Print.setVisible(false);
 		CC_info_Screen=false;
 		CC_Button.setVisible(false);
 		Card_Button.setVisible(false);
