@@ -978,10 +978,22 @@ public class Musicgame extends JFrame {
 			PlayButton.setVisible(false);
 			GachaButton.setVisible(false);
 			startButton.setVisible(false);
+			for(int i=0; i<10; i++) {
+				if(i<5) {
+					g.setColor(Color.gray); g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+					g.setFont(new Font("Royalacid_o",Font.BOLD,25)); g.drawString(Ranking_name[i],110, 199+(i*115));
+					g.setColor(Color.gray); g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+					g.setFont(new Font("Royalacid_o",Font.BOLD,35)); g.drawString(Integer.toString(Ranking_score[i]),340, 200+(i*115));
+				}
+				else {
+					g.setColor(Color.gray); g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+					g.setFont(new Font("Royalacid_o",Font.BOLD,25)); g.drawString(Ranking_name[i],730, 195+((i-5)*115));
+					g.setColor(Color.gray); g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+					g.setFont(new Font("Royalacid_o",Font.BOLD,35)); g.drawString(Integer.toString(Ranking_score[i]),920, 200+((i-5)*115));
+				}
+			}
 			
-			
-			g.setColor(Color.gray); g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-			g.setFont(new Font("Royalacid_o",Font.BOLD,45)); g.drawString(Ranking_name[1],500, 200);
+					
 			
 		}
 		if(ScoreCheck_screen) {
