@@ -175,6 +175,7 @@ public class Musicgame extends JFrame {
 	private boolean explan_Screenimg_page= false;
 	private boolean Card_choice_s= false;
 	private boolean img_big_p =false;
+	private boolean ranking_one_time=false;
 	private int img_num =1;
 	private int Card_next= 1;
 	
@@ -1112,6 +1113,7 @@ public class Musicgame extends JFrame {
 	
 	public void gamestart(int nowselected,String difficlty) {
 		paly_num++;
+		ranking_one_time=true;
 		mid_chr_img= false;
 		CC_info_Screen=false;
 		close_Button.setVisible(false);
@@ -1315,48 +1317,54 @@ public class Musicgame extends JFrame {
 		            System.out.println(ec);
 	   	  }
 		
-		Dimension dim = new Dimension(400,100);
-		
-		JFrame frame = new JFrame("이름 입력");
-		
-		frame.resize(400, 100);
-		frame.setPreferredSize(dim);
-		JTextField textField = new JTextField();
-		JLabel label = new JLabel("순위에 등록 될 이름을 적어주세요.(8자 이내)");
-		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setVerticalAlignment(SwingConstants.CENTER);
-		
-		JButton btton = new JButton("결정 완료!");
-		btton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				
-				String name=textField.getText();
-				if(name.length()>8) {
-					JOptionPane.showMessageDialog(null, "글자 길이가 깁니다.");
+	    if(ranking_one_time) {
+	    	Dimension dim = new Dimension(400,100);
+			
+			JFrame frame = new JFrame("이름 입력");
+			
+			frame.resize(400, 100);
+			frame.setPreferredSize(dim);
+			JTextField textField = new JTextField();
+			JLabel label = new JLabel("순위에 등록 될 이름을 적어주세요.(8자 이내)");
+			label.setHorizontalAlignment(SwingConstants.CENTER);
+			label.setVerticalAlignment(SwingConstants.CENTER);
+			
+			JButton btton = new JButton("결정 완료!");
+			btton.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
 					
-				}else
-				{
-					frame.setVisible(false);
-					String SQL= "INSERT INTO ranking VALUES('"+name+"', "+game.Score+") ";
-					try {
-						PreparedStatement pstmt;
-						Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/animal_friend?serverTimezone=UTC","root","root");
-						pstmt = conn.prepareStatement(SQL);
-						pstmt.executeUpdate();
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+					
+					String name=textField.getText();
+					if(name.length()>8) {
+						JOptionPane.showMessageDialog(null, "글자 길이가 깁니다.");
+						
+					}else
+					{
+						frame.setVisible(false);
+						String SQL= "INSERT INTO ranking VALUES('"+name+"', "+game.Score+") ";
+						try {
+							PreparedStatement pstmt;
+							Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/animal_friend?serverTimezone=UTC","root","root");
+							pstmt = conn.prepareStatement(SQL);
+							pstmt.executeUpdate();
+							ranking_one_time=false;
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 					}
 				}
-			}
-			
-		});
-		frame.add(label, BorderLayout.NORTH);
-		frame.add(textField, BorderLayout.CENTER);
-		frame.add(btton,BorderLayout.SOUTH);
-		frame.setVisible(true);
+				
+			});
+			frame.add(label, BorderLayout.NORTH);
+			frame.add(textField, BorderLayout.CENTER);
+			frame.add(btton,BorderLayout.SOUTH);
+			frame.setVisible(true);
+	    }else {
+	    	JOptionPane.showMessageDialog(null, "이미 입력했습니다.");
+	    }
+		
 		
 		
 	}
