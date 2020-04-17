@@ -1322,7 +1322,7 @@ public class Musicgame extends JFrame {
 		frame.resize(400, 100);
 		frame.setPreferredSize(dim);
 		JTextField textField = new JTextField();
-		JLabel label = new JLabel("순위에 등록 될 이름을 적어주세요.(길게 입력시 잘립니다)");
+		JLabel label = new JLabel("순위에 등록 될 이름을 적어주세요.(8자 이내)");
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setVerticalAlignment(SwingConstants.CENTER);
 		
@@ -1331,17 +1331,24 @@ public class Musicgame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				frame.setVisible(false);
+				
 				String name=textField.getText();
-				String SQL= "INSERT INTO ranking VALUES('"+name+"', "+game.Score+") ";
-				try {
-					PreparedStatement pstmt;
-					Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/animal_friend?serverTimezone=UTC","root","root");
-					pstmt = conn.prepareStatement(SQL);
-					pstmt.executeUpdate();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				if(name.length()>8) {
+					JOptionPane.showMessageDialog(null, "글자 길이가 깁니다.");
+					
+				}else
+				{
+					frame.setVisible(false);
+					String SQL= "INSERT INTO ranking VALUES('"+name+"', "+game.Score+") ";
+					try {
+						PreparedStatement pstmt;
+						Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/animal_friend?serverTimezone=UTC","root","root");
+						pstmt = conn.prepareStatement(SQL);
+						pstmt.executeUpdate();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			}
 			
