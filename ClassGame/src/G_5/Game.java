@@ -29,6 +29,7 @@ public class Game extends Thread{
 	private Image noteRouteImage_a = new ImageIcon(Main.class.getResource("../images/noteRutePressed_1.png")).getImage();
 	private Image Back;
 	
+	
 
 	private Image judgeImage ;
 	
