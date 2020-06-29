@@ -26,6 +26,9 @@ public class Game extends Thread{
 
 	private Image Line = new ImageIcon(Main.class.getResource("../images/judgementLine.png")).getImage();
 	
+	//디비에 현재 그거 넣어서 꺼내기....뭐 그런
+	private Image Card_char_img= gam.getCharImg();
+	//private Image Card_char_img= new ImageIcon(Main.class.getResource("../images/ch_1_1.png")).getImage();
 	private Image noteRouteImage_a = new ImageIcon(Main.class.getResource("../images/noteRutePressed_1.png")).getImage();
 	private Image Back;
 	
@@ -34,6 +37,7 @@ public class Game extends Thread{
 	private Image judgeImage ;
 	
 
+	private int Score_COMBO=0;
 	int s_JLabel_t=0;
 	int Per_score=0;
 	int Great_score=0;
@@ -67,7 +71,7 @@ public class Game extends Thread{
 
 	public void screenDraw(Graphics2D g) {
 		g.drawImage(noteRouteImage_a, 0 ,0 ,null);
-		g.drawImage(judgeImage, 457 ,430 ,null);
+		g.drawImage(Card_char_img, 310,74 ,null);
 		
 
 		
@@ -105,7 +109,7 @@ public class Game extends Thread{
 		g.drawImage(Line, 0 ,0 ,null);
 		g.drawImage(Back, 0 ,0 ,null);
 		
-		
+		g.drawImage(judgeImage, 457 ,430 ,null);
 	}
 	
 	
@@ -1834,20 +1838,31 @@ public class Game extends Thread{
 	}
 	public void judgeEvent(String judge) {
 		
+		if(COMBO >=50) {
+			Score_COMBO=500;
+		}else if(COMBO >= 100) {
+			Score_COMBO=1000;
+		}else if(COMBO >=150) {
+			Score_COMBO=1500;
+		}else {
+			Score_COMBO=0;
+		}
+		
+		
 		if(judge.equals("Good")){
-			Score+=500;
+			Score+=500+Score_COMBO;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/Good_Image.png")).getImage();
 			COMBO=0;
 			Good_score++;
 		}
 		else if(judge.equals("Great")){
-			Score+=900;
+			Score+=900+Score_COMBO;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/Great_Image.png")).getImage();
 			COMBO++;
 			Great_score++;
 		}
 		else if(judge.equals("perfect")){
-			Score+=1200;
+			Score+=1200+Score_COMBO;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/Perfect_Image.png")).getImage();
 			COMBO++;
 			Per_score++;

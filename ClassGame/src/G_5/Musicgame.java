@@ -170,7 +170,6 @@ public class Musicgame extends JFrame {
 	private boolean Card_Random =false;
 	private boolean info_text_Screen =false;
 	private boolean Ranking_Screen =false;
-	private boolean Game_Start =false;
 	
 	private boolean ScoreCheck_screen = false;
 	private boolean explan_Screenimg_page= false;
@@ -511,7 +510,6 @@ public class Musicgame extends JFrame {
 				buttonpressed.start();
 				Music ScoreMusic = new Music("Quiz-Results01-1.mp3", false);
 				ScoreMusic.start();
-				Game_Start = false;
 				ScoreCheck();
 			}
 		});
@@ -1076,9 +1074,6 @@ public class Musicgame extends JFrame {
 			
 			
 		}
-		if(Game_Start) {
-			g.drawImage(Card_char_img,310,74,null);
-		}
 		paintComponents(g); // 占싱뱄옙占쏙옙占쏙옙 占쏙옙占쏘씌占쏙옙占� 占쏙옙占쏙옙? 占쏙옙占쏙옙占쏙옙 占싱뱄옙占쏙옙占쏙옙 占싱뤄옙占쏙옙
 		try {
 			Thread.sleep(5);
@@ -1117,7 +1112,6 @@ public class Musicgame extends JFrame {
 	}
 	
 	public void gamestart(int nowselected,String difficlty) {
-		Game_Start=true;
 		paly_num++;
 		ranking_one_time=true;
 		mid_chr_img= false;
@@ -1409,6 +1403,8 @@ public class Musicgame extends JFrame {
 				e1.printStackTrace();
 		}
 	}
-	
+	public Image getCharImg() {
+		return Card_char_img;
+	}
 
 }
