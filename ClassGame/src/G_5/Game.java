@@ -8,6 +8,10 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.awt.Container;
@@ -16,6 +20,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+
+import com.mysql.cj.xdevapi.Statement;
 
 
 
@@ -27,7 +33,7 @@ public class Game extends Thread{
 	private Image Line = new ImageIcon(Main.class.getResource("../images/judgementLine.png")).getImage();
 	
 	//디비에 현재 그거 넣어서 꺼내기....뭐 그런
-	private Image Card_char_img= gam.getCharImg();
+	private Image Card_char_img= new ImageIcon(Main.class.getResource("../images/"+ImageSet()+".png")).getImage();
 	//private Image Card_char_img= new ImageIcon(Main.class.getResource("../images/ch_1_1.png")).getImage();
 	private Image noteRouteImage_a = new ImageIcon(Main.class.getResource("../images/noteRutePressed_1.png")).getImage();
 	private Image Back;
@@ -36,15 +42,17 @@ public class Game extends Thread{
 
 	private Image judgeImage ;
 	
-
+	
+	private boolean isComboMove=false;
 	private int Score_COMBO=0;
+	private int ImgY=74;
 	int s_JLabel_t=0;
 	int Per_score=0;
 	int Great_score=0;
 	int Good_score=0;
 	int Miss_score=0;
 	int Score=0;
-	int COMBO=0;
+	int COMBO=66;
 	
 	
 	private String titleName;
@@ -71,7 +79,7 @@ public class Game extends Thread{
 
 	public void screenDraw(Graphics2D g) {
 		g.drawImage(noteRouteImage_a, 0 ,0 ,null);
-		g.drawImage(Card_char_img, 310,74 ,null);
+		g.drawImage(Card_char_img, 310,ImgY ,null);
 		
 
 		
@@ -155,10 +163,15 @@ public class Game extends Thread{
 
 	@Override
 	public void run() {
+		if(titleName.equals("Tutorial")) {
+			Card_char_img = new ImageIcon(Main.class.getResource("../images/cd_cho.png")).getImage();
+		}
 		dropNote(this.titleName);
 		
 	}
 	public void dropNote(String titleName) {
+		
+		
 		
 		Beat [] beats = null;
 		if(titleName.equals("Tutorial") && difficult.equals("nano")) {
@@ -1808,6 +1821,13 @@ public class Game extends Thread{
 		int i=0;
 		gameMusic.start();
 		while(i < beats.length && !isInterrupted()) {
+			if(isComboMove) {
+				if(ImgY <=74) {
+					ImgY += Main.NOTE_SPEED;	
+				}else if(ImgY>=200){
+					ImgY -= Main.NOTE_SPEED;
+				}
+			}
 			boolean dropped = false;
 				if(beats[i].getTime() <= gameMusic.getTime()) {
 					Note note = new Note(beats[i].getNoteName());
@@ -1840,12 +1860,14 @@ public class Game extends Thread{
 		
 		if(COMBO >=50) {
 			Score_COMBO=500;
+			isComboMove=true;
 		}else if(COMBO >= 100) {
 			Score_COMBO=1000;
 		}else if(COMBO >=150) {
 			Score_COMBO=1500;
 		}else {
 			Score_COMBO=0;
+			isComboMove=false;
 		}
 		
 		
@@ -1873,6 +1895,30 @@ public class Game extends Thread{
 		}
 		
 	}
-
+	private String ImageSet() {
+		 Connection conn = null ;
+	     Statement st;
+	     ResultSet rs;
+	     PreparedStatement pstmt = null;
+	     String dataName="";
+	     
+	     try {
+	    	 Class.forName("com.mysql.cj.jdbc.Driver");
+	   		  conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/animal_friend?serverTimezone=UTC","root","root");
+	   		  String SQL= "SELECT * from charimg;";
+	   		  pstmt = conn.prepareStatement(SQL);
+	   		  rs = pstmt.executeQuery(SQL);
+		   		while (rs.next())
+				{
+		   			dataName= rs.getString("data").toString();
+				}
+	   		  System.out.println(dataName);
+	   	  }catch(Exception ec) {
+	   		  System.out.println("드라이버 로딩 실패");
+		            System.out.println(ec);
+	   	  }
+	     
+	     return dataName;
+	}
 
 }

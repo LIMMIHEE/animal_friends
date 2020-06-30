@@ -181,6 +181,7 @@ public class Musicgame extends JFrame {
 	
 	ArrayList<Track> trackList = new ArrayList<Track>();//트占쏙옙[shfo] 占쏙옙占쏙옙 占쏙옙占쏙옙占�
 	
+	private String nowImg="ch_1_1";
 	private Image titleImage;
 	private Music selectedMusic;
 	private Image selectedImage;
@@ -191,6 +192,7 @@ public class Musicgame extends JFrame {
 	private int nowSelected = 0; 
 	
 	public static Game game;
+	
 
 	
 	public Musicgame() {
@@ -304,6 +306,7 @@ public class Musicgame extends JFrame {
 					Music buttonpressed = new Music("buttonpressed.mp3",false);
 					Card_char_img = new ImageIcon(Main.class.getResource("../images/ch_1_1.png")).getImage();
 					img_print_img = new ImageIcon(Main.class.getResource("../images/ch_1_1.png")).getImage();
+					nowImg="ch_1_1";
 					Big_img_p_.setBounds(400, 200, 561, 504);
 					buttonpressed.start();
 					img_num=1;
@@ -325,6 +328,7 @@ public class Musicgame extends JFrame {
 					Music buttonpressed = new Music("buttonpressed.mp3",false);
 					Card_char_img = new ImageIcon(Main.class.getResource("../images/ch_1_12.png")).getImage();
 					img_print_img = new ImageIcon(Main.class.getResource("../images/ch_1_2.png")).getImage();
+					nowImg="ch_1_2";
 					Big_img_p_.setBounds(0, 0, 1200, 720);
 					buttonpressed.start();
 					img_num=2;
@@ -344,6 +348,7 @@ public class Musicgame extends JFrame {
 					Music buttonpressed = new Music("buttonpressed.mp3",false);
 					Card_char_img = new ImageIcon(Main.class.getResource("../images/ch_2_1.png")).getImage();
 					img_print_img = new ImageIcon(Main.class.getResource("../images/ch_2_1.png")).getImage();
+					nowImg="ch_2_1";
 					Big_img_p_.setBounds(400, 200, 561, 504);
 					buttonpressed.start();	
 					img_num=1;
@@ -362,6 +367,7 @@ public class Musicgame extends JFrame {
 					Music buttonpressed = new Music("buttonpressed.mp3",false);
 					Card_char_img = new ImageIcon(Main.class.getResource("../images/ch_2_12.png")).getImage();
 					img_print_img = new ImageIcon(Main.class.getResource("../images/ch_2_2.png")).getImage();
+					nowImg="ch_2_2";
 					Big_img_p_.setBounds(0, 0, 1200, 720);
 					buttonpressed.start();
 					img_num=2;
@@ -381,6 +387,7 @@ public class Musicgame extends JFrame {
 					Music buttonpressed = new Music("buttonpressed.mp3",false);
 					Card_char_img = new ImageIcon(Main.class.getResource("../images/ch_3_1.png")).getImage();
 					img_print_img = new ImageIcon(Main.class.getResource("../images/ch_3_1.png")).getImage();
+					nowImg="ch_3_1";
 					Big_img_p_.setBounds(400, 200, 561, 504);
 					buttonpressed.start();	
 					img_num=1;
@@ -400,6 +407,7 @@ public class Musicgame extends JFrame {
 					Music buttonpressed = new Music("buttonpressed.mp3",false);
 					Card_char_img = new ImageIcon(Main.class.getResource("../images/ch_3_12.png")).getImage();
 					img_print_img = new ImageIcon(Main.class.getResource("../images/ch_3_2.png")).getImage();
+					nowImg="ch_3_2";
 					Big_img_p_.setBounds(0, 0, 1200, 720);
 					buttonpressed.start();
 					img_num=2;
@@ -419,6 +427,7 @@ public class Musicgame extends JFrame {
 					Music buttonpressed = new Music("buttonpressed.mp3",false);
 					Card_char_img = new ImageIcon(Main.class.getResource("../images/ch_4_1.png")).getImage();
 					img_print_img = new ImageIcon(Main.class.getResource("../images/ch_4_1.png")).getImage();
+					nowImg="ch_4_1";
 					Big_img_p_.setBounds(400, 200, 561, 504);
 					buttonpressed.start();	
 					img_num=1;
@@ -438,6 +447,7 @@ public class Musicgame extends JFrame {
 					Music buttonpressed = new Music("buttonpressed.mp3",false);
 					Card_char_img = new ImageIcon(Main.class.getResource("../images/ch_4_12.png")).getImage();
 					img_print_img = new ImageIcon(Main.class.getResource("../images/ch_4_2.png")).getImage();
+					nowImg="ch_4_2";
 					Big_img_p_.setBounds(0, 0, 1200, 720);
 					buttonpressed.start();
 					img_num=2;
@@ -742,6 +752,7 @@ public class Musicgame extends JFrame {
 			public void mousePressed(MouseEvent e) {
 				Music buttonpressed = new Music("buttonpressed.mp3",false);
 				buttonpressed.start();
+				ImgData_change();
 				if(paly_num!=1) {
 					enterMain();
 				}else {
@@ -1300,6 +1311,27 @@ public class Musicgame extends JFrame {
 		close_Button.setVisible(false);
 		Card_choice_s = false;
 
+	}
+	
+	private void ImgData_change() {
+		 Connection conn = null ;
+	     Statement st;
+	     ResultSet rs;
+	     
+	     
+	     try {
+	   		  Class.forName("com.mysql.cj.jdbc.Driver");
+	   		  conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/animal_friend?serverTimezone=UTC","root","root");
+	   		  PreparedStatement pstmt;
+	   		String SQL= "UPDATE charimg SET data = '"+nowImg+"' ";
+	   		  pstmt = conn.prepareStatement(SQL);
+			  pstmt.executeUpdate();
+	   	  }catch(Exception ec) {
+	   		  System.out.println("드라이버 로딩 실패");
+		            System.out.println(ec);
+	   	  }
+	     
+	     
 	}
 	
 	private void Ranking_score() {

@@ -6,7 +6,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="D:/기타/mysql-connector-java-8.0.19/mysql-connector-java-8.0.19.jar"/>
-	<classpathentry kind="lib" path="D:/기타/JLayer1.0.1/jl1.0.1.jar"/>
+	<classpathentry kind="lib" path="E:/전공/전공/mysql-connector-java-8.0.19/mysql-connector-java-8.0.19.jar"/>
+	<classpathentry kind="lib" path="E:/전공/java/JLayer1.0.1/jl1.0.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
