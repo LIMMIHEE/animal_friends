@@ -328,7 +328,7 @@ public class Musicgame extends JFrame {
 					Music buttonpressed = new Music("buttonpressed.mp3",false);
 					Card_char_img = new ImageIcon(Main.class.getResource("../images/ch_1_12.png")).getImage();
 					img_print_img = new ImageIcon(Main.class.getResource("../images/ch_1_2.png")).getImage();
-					nowImg="ch_1_2";
+					nowImg="ch_1_12";
 					Big_img_p_.setBounds(0, 0, 1200, 720);
 					buttonpressed.start();
 					img_num=2;
@@ -367,7 +367,7 @@ public class Musicgame extends JFrame {
 					Music buttonpressed = new Music("buttonpressed.mp3",false);
 					Card_char_img = new ImageIcon(Main.class.getResource("../images/ch_2_12.png")).getImage();
 					img_print_img = new ImageIcon(Main.class.getResource("../images/ch_2_2.png")).getImage();
-					nowImg="ch_2_2";
+					nowImg="ch_2_12";
 					Big_img_p_.setBounds(0, 0, 1200, 720);
 					buttonpressed.start();
 					img_num=2;
@@ -407,7 +407,7 @@ public class Musicgame extends JFrame {
 					Music buttonpressed = new Music("buttonpressed.mp3",false);
 					Card_char_img = new ImageIcon(Main.class.getResource("../images/ch_3_12.png")).getImage();
 					img_print_img = new ImageIcon(Main.class.getResource("../images/ch_3_2.png")).getImage();
-					nowImg="ch_3_2";
+					nowImg="ch_3_12";
 					Big_img_p_.setBounds(0, 0, 1200, 720);
 					buttonpressed.start();
 					img_num=2;
@@ -447,7 +447,7 @@ public class Musicgame extends JFrame {
 					Music buttonpressed = new Music("buttonpressed.mp3",false);
 					Card_char_img = new ImageIcon(Main.class.getResource("../images/ch_4_12.png")).getImage();
 					img_print_img = new ImageIcon(Main.class.getResource("../images/ch_4_2.png")).getImage();
-					nowImg="ch_4_2";
+					nowImg="ch_4_12";
 					Big_img_p_.setBounds(0, 0, 1200, 720);
 					buttonpressed.start();
 					img_num=2;

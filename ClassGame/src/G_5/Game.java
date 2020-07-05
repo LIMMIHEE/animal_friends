@@ -43,7 +43,6 @@ public class Game extends Thread{
 	private Image judgeImage ;
 	
 	
-	private boolean isComboMove=false;
 	private int Score_COMBO=0;
 	private int ImgY=74;
 	int s_JLabel_t=0;
@@ -52,7 +51,7 @@ public class Game extends Thread{
 	int Good_score=0;
 	int Miss_score=0;
 	int Score=0;
-	int COMBO=66;
+	int COMBO=0;
 	
 	
 	private String titleName;
@@ -1821,13 +1820,6 @@ public class Game extends Thread{
 		int i=0;
 		gameMusic.start();
 		while(i < beats.length && !isInterrupted()) {
-			if(isComboMove) {
-				if(ImgY <=74) {
-					ImgY += Main.NOTE_SPEED;	
-				}else if(ImgY>=200){
-					ImgY -= Main.NOTE_SPEED;
-				}
-			}
 			boolean dropped = false;
 				if(beats[i].getTime() <= gameMusic.getTime()) {
 					Note note = new Note(beats[i].getNoteName());
@@ -1860,14 +1852,12 @@ public class Game extends Thread{
 		
 		if(COMBO >=50) {
 			Score_COMBO=500;
-			isComboMove=true;
 		}else if(COMBO >= 100) {
 			Score_COMBO=1000;
 		}else if(COMBO >=150) {
 			Score_COMBO=1500;
 		}else {
 			Score_COMBO=0;
-			isComboMove=false;
 		}
 		
 		
