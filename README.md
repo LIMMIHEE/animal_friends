@@ -14,7 +14,7 @@
 
 # UI
 ### 이미지 클릭 시 홍보 영상으로 넘어갑니다 ( 전시회 홍보 영상 )
-![Video Label](https://user-images.githubusercontent.com/48482259/77128515-b8b7a000-6a93-11ea-9aea-6499503bd280.PNG)
+[![Video Label](https://user-images.githubusercontent.com/48482259/77128515-b8b7a000-6a93-11ea-9aea-6499503bd280.PNG)]
 (https://youtu.be/d11q6hbL-Q8)
 
 
